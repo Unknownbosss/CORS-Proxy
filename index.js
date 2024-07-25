@@ -3,11 +3,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api', (req, res) => {
-  const targetUrl = req.query.url; // Get the target URL from the query parameter
+app.use('/api/:url*', (req, res) => {
+  const targetUrl = req.params.url; // Get the target URL with API key included
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  req.pipe(require('https').createServer({ target: targetUrl }).req).pipe(res);
+  req.pipe(require('https').createServer({ target: `https://${targetUrl}` }).req).pipe(res);
 });
 
 app.listen(3000, () => {
