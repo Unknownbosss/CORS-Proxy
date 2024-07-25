@@ -9,6 +9,8 @@ app.use('/api', (req, res) => {
     const targetUrl = `${url}?key=${apiKey}`; // Construct the full target URL with API key
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    console.log(`Target URL: ${targetUrl}`);
+
     req.pipe(require('https').createServer({ target: targetUrl }).req).pipe(res);
   });
   
